@@ -170,7 +170,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 
                 func makeGreenLeft() {
                     let greenLeft = SKSpriteNode(color: UIColor.green, size: CGSize(width: frame.width, height: 50))
-                    greenLeft.position = CGPoint(x: frame.maxX, y: frame.maxY)
+                    greenLeft.position = CGPoint(x: frame.maxX, y: frame.minY)
                     greenLeft.name = "greenLeft"
                     greenLeft.physicsBody = SKPhysicsBody(rectangleOf: greenLeft.size)
                     greenLeft.physicsBody?.isDynamic = false
@@ -179,7 +179,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
                 func makeGreenLeft2() {
                     let greenLeft2 = SKSpriteNode(color: UIColor.green, size: CGSize(width: frame.width, height: 50))
-                    greenLeft2.position = CGPoint(x: frame.maxX, y: frame.maxY)
+                    greenLeft2.position = CGPoint(x: frame.minX, y: frame.minY)
                     greenLeft2.name = "greenLeft2"
                     greenLeft2.physicsBody = SKPhysicsBody(rectangleOf: greenLeft2.size)
                     greenLeft2.physicsBody?.isDynamic = false
