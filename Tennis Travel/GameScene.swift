@@ -16,8 +16,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var tennisRacket1 = SKSpriteNode()
     var tennisRacket2 = SKSpriteNode()
     var loseZone = SKSpriteNode()
+    var loseZone2 = SKSpriteNode()
     var score: Int = 0
     var  numberOfLives: Int = 0
+    var scoreBoard = SKSpriteNode()
     
          override func didMove(to view: SKView)
          {
@@ -30,28 +32,69 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             makeTennisBall()
             makeRacket1()
             makeRacket2()
-            makeNet()
-            makeGreenRight()
-            makeGreenLeft()
-            makeGreenRight2()
-            makeGreenLeft2()
+//            makeNet()
+//            makeGreenRight()
+//            makeGreenLeft()
+//            makeGreenRight2()
+//            makeGreenLeft2()
             makeLoseZone()
+            makeLoseZone2()
+            makeScoreBoard()
         }
     
-        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-            for touch in touches {
+     func touchesMoved(touches: Set <UITouch>, with event: UIEvent?)
+     {
+        for touch in touches
+        {
+            let location = touch.location(in: self)
+            tennisRacket1.position.x = location.x
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
+    {
+            for touch in touches
+            {
                 let location = touch.location(in: self)
+                
+                if loseZone2.contains(location)
+                {
                 tennisRacket1.position.x = location.x
                 tennisBall.physicsBody?.isDynamic = true
                 tennisBall.physicsBody?.applyImpulse(CGVector(dx: 5, dy: 5))
                 }
-        }
-    
-        override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-            for touch in touches {
-                let location = touch.location(in: self)
-                tennisRacket2.position.x = location.x
+                
+                if loseZone.contains(location)
+                {
+                    tennisRacket2.position.x = location.x
+                    tennisBall.physicsBody?.isDynamic = true
+                    tennisBall.physicsBody?.applyImpulse(CGVector(dx: 5, dy: 5))
+                }
             }
+    }
+    
+        override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
+        {
+            for touch in touches
+            {
+                let location = touch.location(in: self)
+                
+                if loseZone2.contains(location)
+                {
+                    tennisRacket1.position.x = location.x
+                    tennisBall.physicsBody?.isDynamic = true
+                    tennisBall.physicsBody?.applyImpulse(CGVector(dx: 5, dy: 5))
+                }
+                if loseZone.contains(location)
+                {
+                    tennisRacket2.position.x = location.x
+                    tennisBall.physicsBody?.isDynamic = true
+                    tennisBall.physicsBody?.applyImpulse(CGVector(dx: 5, dy: 5))
+                }
+
+            }
+           
+            
         }
         
         func didBegin(_ contact: SKPhysicsContact) {
@@ -84,8 +127,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 }
             }
 
-            func update(currentTime: TimeInterval) {
-                if (score == 60) {
+            func update(currentTime: TimeInterval)
+            {
+                if (score == 60)
+                {
                     print( "You totally won, dude!!!!\nYou Totally scored all", score,  "Points!!!!!!!")
                     self.view?.isPaused = true
                 }
@@ -131,7 +176,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 tennisRacket1.physicsBody?.isDynamic = false
                 addChild(tennisRacket1)
                 }
-            
+    
                 func makeRacket2() {
                 tennisRacket2 = SKSpriteNode(color: UIColor.blue, size: CGSize(width: frame.width/4, height: 20))
                 tennisRacket2.position = CGPoint(x: frame.minX, y: frame.midY + 125)
@@ -142,59 +187,84 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 }
     
                 func makeLoseZone() {
-                    let loseZone = SKSpriteNode(color: UIColor.brown, size: CGSize(width: frame.width, height: 50))
-                    loseZone.position = CGPoint(x: frame.maxX, y: frame.maxY + 25)
+                    loseZone = SKSpriteNode(color: UIColor.brown, size: CGSize(width: 640, height: 140))
+                    loseZone.position = CGPoint(x: frame.minX, y: frame.maxY)
                     loseZone.name = "loseZone"
                     loseZone.physicsBody = SKPhysicsBody(rectangleOf: loseZone.size)
                     loseZone.physicsBody?.isDynamic = false
                     addChild(loseZone)
                 }
-    
-                func makeGreenRight() {
-                    let greenRight = SKSpriteNode(color: UIColor.green, size: CGSize(width: frame.width, height: 50))
-                    greenRight.position = CGPoint(x: frame.maxX, y: frame.minY)
-                    greenRight.name = "greenRight"
-                    greenRight.physicsBody = SKPhysicsBody(rectangleOf: greenRight.size)
-                    greenRight.physicsBody?.isDynamic = false
-                    addChild(greenRight)
-                }
-    
-                func makeGreenRight2() {
-                    let greenRight2 = SKSpriteNode(color: UIColor.green, size: CGSize(width: frame.width, height: 50))
-                    greenRight2.position = CGPoint(x: frame.minX - 70, y: frame.maxY)
-                    greenRight2.name = "greenRight2"
-                    greenRight2.physicsBody = SKPhysicsBody(rectangleOf: greenRight2.size)
-                    greenRight2.physicsBody?.isDynamic = false
-                    addChild(greenRight2)
-               }
-                
-                func makeGreenLeft() {
-                    let greenLeft = SKSpriteNode(color: UIColor.green, size: CGSize(width: frame.width, height: 50))
-                    greenLeft.position = CGPoint(x: frame.maxX, y: frame.minY)
-                    greenLeft.name = "greenLeft"
-                    greenLeft.physicsBody = SKPhysicsBody(rectangleOf: greenLeft.size)
-                    greenLeft.physicsBody?.isDynamic = false
-                    addChild(greenLeft)
-                }
-    
-                func makeGreenLeft2() {
-                    let greenLeft2 = SKSpriteNode(color: UIColor.green, size: CGSize(width: frame.width, height: 50))
-                    greenLeft2.position = CGPoint(x: frame.minX, y: frame.minY)
-                    greenLeft2.name = "greenLeft2"
-                    greenLeft2.physicsBody = SKPhysicsBody(rectangleOf: greenLeft2.size)
-                    greenLeft2.physicsBody?.isDynamic = false
-                    addChild(greenLeft2)
-                }
-    
-                func makeNet() {
-                    let net = SKSpriteNode(color: UIColor.brown, size: CGSize(width: frame.width, height: 25))
-                    net.position = CGPoint(x: frame.midX, y: frame.midY + 25)
-                    net.name = "net"
-                    net.physicsBody = SKPhysicsBody(rectangleOf: net.size )
-                    net.physicsBody?.isDynamic = false
-                    addChild(net)
-
+                func makeLoseZone2() {
+                     loseZone2 = SKSpriteNode(color: UIColor.brown, size: CGSize(width: 640, height: 140))
+                    loseZone2.position = CGPoint(x: frame.maxX, y: frame.minY)
+            loseZone2.name = "loseZone2"
+            loseZone2.physicsBody = SKPhysicsBody(rectangleOf: loseZone2.size)
+            loseZone2.physicsBody?.isDynamic = false
+            addChild(loseZone2)
+    }
+    func makeScoreBoard() {
+        scoreBoard = SKSpriteNode(color: UIColor.red, color: backgroundColor = UIColor.clear, size:CGSize(width: frame.width/4, height: 20))
+        scoreBoard.position = CGPoint(x: frame.maxX, y: frame.midY)
+        scoreBoard.name = "scoreBoard"
         
     }
-
+    
 }
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    //                func makeGreenRight() {
+//                    let greenRight = SKSpriteNode(color: UIColor.green, size: CGSize(width: frame.width, height: 50))
+//                    greenRight.position = CGPoint(x: frame.maxX, y: frame.minY)
+//                    greenRight.name = "greenRight"
+//                    greenRight.physicsBody = SKPhysicsBody(rectangleOf: greenRight.size)
+//                    greenRight.physicsBody?.isDynamic = false
+//                    addChild(greenRight)
+                
+    
+//                func makeGreenRight2() {
+//                    let greenRight2 = SKSpriteNode(color: UIColor.green, size: CGSize(width: frame.width, height: 50))
+//                    greenRight2.position = CGPoint(x: frame.minX - 70, y: frame.maxY)
+//                    greenRight2.name = "greenRight2"
+//                    greenRight2.physicsBody = SKPhysicsBody(rectangleOf: greenRight2.size)
+//                    greenRight2.physicsBody?.isDynamic = false
+//                    addChild(greenRight2)
+
+                
+//                func makeGreenLeft() {
+//                    let greenLeft = SKSpriteNode(color: UIColor.green, size: CGSize(width: frame.width, height: 50))
+//                    greenLeft.position = CGPoint(x: frame.maxX, y: frame.minY)
+//                    greenLeft.name = "greenLeft"
+//                    greenLeft.physicsBody = SKPhysicsBody(rectangleOf: greenLeft.size)
+//                    greenLeft.physicsBody?.isDynamic = false
+//                    addChild(greenLeft)
+
+    
+//                func makeGreenLeft2() {
+//                    let greenLeft2 = SKSpriteNode(color: UIColor.green, size: CGSize(width: frame.width, height: 50))
+//                    greenLeft2.position = CGPoint(x: frame.minX, y: frame.minY)
+//                    greenLeft2.name = "greenLeft2"
+//                    greenLeft2.physicsBody = SKPhysicsBody(rectangleOf: greenLeft2.size)
+//                    greenLeft2.physicsBody?.isDynamic = false
+//                    addChild(greenLeft2)
+
+    
+//                func makeNet() {
+//                    let net = SKSpriteNode(color: UIColor.brown, size: CGSize(width: frame.width, height: 25))
+//                    net.position = CGPoint(x: frame.midX, y: frame.midY + 25)
+//                    net.name = "net"
+//                    net.physicsBody = SKPhysicsBody(rectangleOf: net.size )
+//                    net.physicsBody?.isDynamic = false
+//                    addChild(net)
+
+        
+
+
+
