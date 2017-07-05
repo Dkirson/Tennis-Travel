@@ -119,7 +119,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     contact.bodyB.node?.name == "loseZone") {
                     numberOfLives += 1
                     if numberOfLives < 3 {
-                        print("You are on life", numberOfLives + 1)
+                        print("You are on life", numberOfLives - 1)
                     }
                     if numberOfLives == 3 {
                         print("You made", score, "Serves!!\nBut You Still Lost!!")
@@ -203,10 +203,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             addChild(loseZone2)
     }
     func makeScoreBoard() {
-        scoreBoard = SKSpriteNode(color: UIColor.red, color: backgroundColor = UIColor.clear, size:CGSize(width: frame.width/4, height: 20))
-        scoreBoard.position = CGPoint(x: frame.maxX, y: frame.midY)
+        scoreBoard = SKSpriteNode(color: UIColor.red, size:CGSize(width: frame.width/4, height: 50))
+        scoreBoard.position = CGPoint(x: frame.midX, y: frame.maxY)
         scoreBoard.name = "scoreBoard"
-        
+        scoreBoard.physicsBody = SKPhysicsBody(rectangleOf: scoreBoard.size)
+        scoreBoard.physicsBody?.isDynamic = false
+        addChild(scoreBoard)
+        scoreBoard = ""
     }
     
 }
