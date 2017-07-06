@@ -18,8 +18,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var loseZone = SKSpriteNode()
     var loseZone2 = SKSpriteNode()
     var score: Int = 0
-    var  numberOfLives: Int = 0
-    var scoreBoard = SKSpriteNode()
+    var numberOfLives: Int = 0
+    var scoreBoard: SKLabelNode!
     
          override func didMove(to view: SKView)
          {
@@ -161,7 +161,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 tennisBall.physicsBody?.isDynamic = false//ignores all forces and impulses
                 tennisBall.physicsBody?.usesPreciseCollisionDetection = true
                 tennisBall.physicsBody?.friction = 0
-                tennisBall.physicsBody?.affectedByGravity = false
+                tennisBall.physicsBody?.affectedByGravity = true
                 tennisBall.physicsBody?.restitution = 1
                 tennisBall.physicsBody?.linearDamping = 0
                 tennisBall.physicsBody?.contactTestBitMask = (tennisBall.physicsBody?.collisionBitMask)!
@@ -203,13 +203,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             addChild(loseZone2)
     }
     func makeScoreBoard() {
-        scoreBoard = SKSpriteNode(color: UIColor.red, size:CGSize(width: frame.width/4, height: 50))
-        scoreBoard.position = CGPoint(x: frame.midX, y: frame.maxY)
-        scoreBoard.name = "scoreBoard"
-        scoreBoard.physicsBody = SKPhysicsBody(rectangleOf: scoreBoard.size)
-        scoreBoard.physicsBody?.isDynamic = false
+        scoreBoard = SKLabelNode(fontNamed: "Arial")
+        scoreBoard.fontSize = 20
+        scoreBoard.fontColor = SKColor.red
+        scoreBoard.position = CGPoint(x: frame.midX, y: frame.maxY - 50)
+        scoreBoard.text = "Score: " + String(score)
         addChild(scoreBoard)
-        scoreBoard = ""
+//        scoreBoard = SKLabelNode(color: UIColor.red, size:CGSize(width: frame.width/4, height: 50))
+//        scoreBoard.position = CGPoint(x: frame.midX, y: frame.maxY)
+//        scoreBoard.name = "scoreBoard"
+//        scoreBoard.physicsBody = SKPhysicsBody(rectangleOf: scoreBoard.size)
+//        scoreBoard.physicsBody?.isDynamic = false
+//        addChild(scoreBoard)
+//        scoreBoard = ""
     }
     
 }
