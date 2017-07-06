@@ -170,7 +170,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
                 func makeRacket1() {
                 tennisRacket1 = SKSpriteNode(color: UIColor.green, size: CGSize(width: frame.width/4, height: 20))
-                tennisRacket1.position = CGPoint(x: frame.midX, y: frame.minY + 125)
+                tennisRacket1.position = CGPoint(x: frame.maxX, y: frame.midY - 125)
                 tennisRacket1.name = "tennisRacket1"
                 tennisRacket1.physicsBody = SKPhysicsBody(rectangleOf: tennisRacket1.size)
                 tennisRacket1.physicsBody?.isDynamic = false
@@ -187,7 +187,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 }
     
                 func makeLoseZone() {
-                    loseZone = SKSpriteNode(color: UIColor.brown, size: CGSize(width: 640, height: 140))
+                    loseZone = SKSpriteNode(color: UIColor.brown, size: CGSize(width: 1000, height: 310))
                     loseZone.position = CGPoint(x: frame.minX, y: frame.maxY)
                     loseZone.name = "loseZone"
                     loseZone.physicsBody = SKPhysicsBody(rectangleOf: loseZone.size)
@@ -195,7 +195,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     addChild(loseZone)
                 }
                 func makeLoseZone2() {
-                     loseZone2 = SKSpriteNode(color: UIColor.brown, size: CGSize(width: 640, height: 140))
+                     loseZone2 = SKSpriteNode(color: UIColor.brown, size: CGSize(width: 1000, height: 310))
                     loseZone2.position = CGPoint(x: frame.maxX, y: frame.minY)
             loseZone2.name = "loseZone2"
             loseZone2.physicsBody = SKPhysicsBody(rectangleOf: loseZone2.size)
