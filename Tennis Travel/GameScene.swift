@@ -2,16 +2,23 @@
 //  GameScene.swift
 //  Tennis Travel
 //
-//  Created by Sephiroth Rivera on 6/29/17.
-//  Copyright © 2017 Sephiroth Rivera. All rights reserved.
+//  Created by David Kirson on 6/29/17.
+//  Copyright © 2017 David Kirson. All rights reserved.
 //
 
 import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate
+ {
+    override init(size: CGSize)
     {
-  
+        super.init(size: SKView.bounds.size)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     var tennisBall = SKShapeNode()
     var tennisRacket1 = SKSpriteNode()
     var tennisRacket2 = SKSpriteNode()
@@ -20,6 +27,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var score: Int = 0
     var numberOfLives: Int = 0
     var scoreBoard: SKLabelNode!
+    var scoreBoard2: SKLabelNode
     
          override func didMove(to view: SKView)
          {
@@ -32,10 +40,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             makeTennisBall()
             makeRacket1()
             makeRacket2()
-
-//            makeLoseZone()
-//            makeLoseZone2()
+//          makeLoseZone()
+//          makeLoseZone2()
             makeScoreBoard()
+            makeScoreBoard2()
     
         }
     
@@ -207,7 +215,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate
 
     }
     
-
+    func makeScoreBoard2()
+    {
+        scoreBoard2 = SKLabelNode(fontNamed: "Arial")
+        scoreBoard2.fontSize = 20
+        scoreBoard2.fontColor = SKColor.blue
+        scoreBoard2.position = CGPoint(x: frame.midX, y: frame.minY + 50)
+        scoreBoard2.text = "Score: " + String(score)
+        addChild(scoreBoard2)
+    }
 }
     
     
