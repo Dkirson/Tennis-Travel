@@ -17,6 +17,9 @@
 		20EC1AF31F0553E9001EEDEB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20EC1AF11F0553E9001EEDEB /* LaunchScreen.storyboard */; };
 		20EC1AFE1F0553E9001EEDEB /* Tennis_TravelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EC1AFD1F0553E9001EEDEB /* Tennis_TravelTests.swift */; };
 		20EC1B091F0553E9001EEDEB /* Tennis_TravelUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EC1B081F0553E9001EEDEB /* Tennis_TravelUITests.swift */; };
+		94C975BF1F11BEA60057A19B /* hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 94C975BC1F11BEA60057A19B /* hit.wav */; };
+		94C975C01F11BEA60057A19B /* tada.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 94C975BD1F11BEA60057A19B /* tada.mp3 */; };
+		94C975C11F11BEA60057A19B /* miss.wav in Resources */ = {isa = PBXBuildFile; fileRef = 94C975BE1F11BEA60057A19B /* miss.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,9 @@
 		20EC1B041F0553E9001EEDEB /* Tennis TravelUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tennis TravelUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		20EC1B081F0553E9001EEDEB /* Tennis_TravelUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tennis_TravelUITests.swift; sourceTree = "<group>"; };
 		20EC1B0A1F0553E9001EEDEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		94C975BC1F11BEA60057A19B /* hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hit.wav; sourceTree = "<group>"; };
+		94C975BD1F11BEA60057A19B /* tada.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tada.mp3; sourceTree = "<group>"; };
+		94C975BE1F11BEA60057A19B /* miss.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = miss.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +109,9 @@
 		20EC1AE11F0553E9001EEDEB /* Tennis Travel */ = {
 			isa = PBXGroup;
 			children = (
+				94C975BC1F11BEA60057A19B /* hit.wav */,
+				94C975BD1F11BEA60057A19B /* tada.mp3 */,
+				94C975BE1F11BEA60057A19B /* miss.wav */,
 				20EC1AE21F0553E9001EEDEB /* AppDelegate.swift */,
 				20EC1AE41F0553E9001EEDEB /* GameScene.sks */,
 				20EC1AE61F0553E9001EEDEB /* Actions.sks */,
@@ -242,11 +251,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94C975C11F11BEA60057A19B /* miss.wav in Resources */,
+				94C975BF1F11BEA60057A19B /* hit.wav in Resources */,
 				20EC1AEE1F0553E9001EEDEB /* Main.storyboard in Resources */,
 				20EC1AE51F0553E9001EEDEB /* GameScene.sks in Resources */,
 				20EC1AF01F0553E9001EEDEB /* Assets.xcassets in Resources */,
 				20EC1AF31F0553E9001EEDEB /* LaunchScreen.storyboard in Resources */,
 				20EC1AE71F0553E9001EEDEB /* Actions.sks in Resources */,
+				94C975C01F11BEA60057A19B /* tada.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
