@@ -23,11 +23,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var bottomPlayerScoreText = "0"
     var topPlayerScoreText = "0"
     var game = 1
-    var set = 1
     var topPlayerScoreBoard = SKLabelNode(fontNamed: "Arial")
     var bottomPlayerScoreBoard = SKLabelNode(fontNamed: "Arial")
     var topPlayerGamesWon = 0
     var bottomPlayerGamesWon = 0
+    
+//    func displayWinningMessage(message:String)
+//    {
+//        let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
+//        let alertAction = UIAlertAction(title: "Play Again", style: .default)
+//        {
+//            (action) -> Void in self.resetGame()
+//        }
+//        alert.addAction(alertAction)
+//
+//        present(alert, animated: true, completion: nil)
+//    }
+
     override func didMove(to view: SKView)
     {
         physicsWorld.contactDelegate = self
@@ -45,8 +57,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         makeTopPlayerScoreBoard()
         makeBottomPlayerScoreBoard()
         self.view?.isPaused = true
-        
-        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
@@ -103,7 +113,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     {
         let bodyAName = contact.bodyA.node?.name
         let bodyBName = contact.bodyB.node?.name
-        //var waitTime = 100
         if (bodyAName == "tennisBall" && bodyBName == "loseZone") || (bodyAName == "loseZone" && bodyBName == "tennisBall")
         {
             bottomPlayerScore += 1
@@ -118,28 +127,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     bottomPlayerScoreText = "15"
                 }
             }
-            if bottomPlayerScore == 2 {
+            if bottomPlayerScore == 2
+            {
                 bottomPlayerScoreText = "30"
             }
-            if bottomPlayerScore == 3 {
+            if bottomPlayerScore == 3
+            {
                 bottomPlayerScoreText = "40"
             }
-            if bottomPlayerScore >= 4 && bottomPlayerScore == topPlayerScore {
+            if bottomPlayerScore >= 4 && bottomPlayerScore == topPlayerScore
+            {
                 bottomPlayerScoreText = "Deuce"
                 topPlayerScoreText = "Deuce"
             }
-            if bottomPlayerScore >= 4 && bottomPlayerScore > topPlayerScore {
+            if bottomPlayerScore >= 4 && bottomPlayerScore > topPlayerScore
+            {
                 bottomPlayerScoreText = "Advantage"
                 topPlayerScoreText = " -- "
             }
-            if bottomPlayerScore >= 4 && bottomPlayerScore > (topPlayerScore + 1) {
-                run(SKAction.playSoundFileNamed("tada.mp3", waitForCompletion: true))
+            if bottomPlayerScore >= 4 && bottomPlayerScore > (topPlayerScore + 1)
+            {
                 bottomPlayerScoreText = "WON GAME \(game)!!!"
                 game += 1
                 bottomPlayerGamesWon += 1
                 bottomPlayerScoreBoard.text = "Player 2: " + String(bottomPlayerGamesWon)
+                if bottomPlayerGamesWon >= 6 && (bottomPlayerGamesWon == 7 || bottomPlayerGamesWon - 1 > topPlayerGamesWon) {
+//                     WINNING ROUTINE!!!
+                    run(SKAction.playSoundFileNamed("winning.wav", waitForCompletion: true))
+                    tennisBall.removeFromParent()
+//                    displayWinningMessage(message: "Player 2 Won the Set!!!")
+                }
                 bottomPlayerScore = 0
                 topPlayerScore = 0
+                run(SKAction.playSoundFileNamed("tada.mp3", waitForCompletion: true))
                 //self.view?.isPaused = true
             }
             scoreBoard2.text = "Score: \(bottomPlayerScoreText)"
@@ -160,29 +180,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     topPlayerScoreText = "15"
                 }
             }
-            if topPlayerScore == 2 {
+            if topPlayerScore == 2
+            {
                 topPlayerScoreText = "30"
             }
-            if topPlayerScore == 3 {
+            if topPlayerScore == 3
+            {
                 topPlayerScoreText = "40"
             }
-            if topPlayerScore >= 4 && bottomPlayerScore == topPlayerScore {
+            if topPlayerScore >= 4 && bottomPlayerScore == topPlayerScore
+            {
                 bottomPlayerScoreText = "Deuce"
                 topPlayerScoreText = "Deuce"
             }
-            if topPlayerScore >= 4 && topPlayerScore > bottomPlayerScore {
+            if topPlayerScore >= 4 && topPlayerScore > bottomPlayerScore
+            {
                 topPlayerScoreText = "Advantage"
                 bottomPlayerScoreText = " -- "
             }
-            if topPlayerScore >= 4 && topPlayerScore > (bottomPlayerScore + 1) {
-                run(SKAction.playSoundFileNamed("tada.mp3", waitForCompletion: true))
-                
+            if topPlayerScore >= 4 && topPlayerScore > (bottomPlayerScore + 1)
+            {
                 topPlayerScoreText = "WON GAME \(game)!!!"
                 game += 1
                 topPlayerGamesWon += 1
                 topPlayerScoreBoard.text = "Player 1: " + String(topPlayerGamesWon)
+                if topPlayerGamesWon >= 6 && (topPlayerGamesWon == 7 || topPlayerGamesWon - 1 > bottomPlayerGamesWon) {
+//                     WINNING ROUTINE!!!
+                    run(SKAction.playSoundFileNamed("winning.wav", waitForCompletion: true))
+                    tennisBall.removeFromParent()
+//                    displayWinningMessage(message: "Player 1 Won the Set!!!")
+                }
                 topPlayerScore = 0
                 bottomPlayerScore = 0
+                run(SKAction.playSoundFileNamed("tada.mp3", waitForCompletion: true))
                 //self.view?.isPaused = true
             }
             scoreBoard.text = "Score: \(topPlayerScoreText)"
@@ -191,6 +221,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         }
         if (bodyAName == "tennisRacket1" || bodyBName == "tennisRacket1") || (bodyAName == "tennisRacket2" || bodyBName == "tennisRacket2")
         {
+            if topPlayerScoreText == "WON GAME \(game - 1)!!!" || bottomPlayerScoreText == "WON GAME \(game - 1)!!!"
+            {
+                topPlayerScoreText = "0"
+                bottomPlayerScoreText = "0"
+                scoreBoard.text = "Score: \(topPlayerScoreText)"
+                scoreBoard2.text = "Score: \(bottomPlayerScoreText)"
+            }
             run(SKAction.playSoundFileNamed("hit.wav", waitForCompletion: false))
         }
     }
@@ -301,6 +338,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         scoreBoard.text = "Score: " + String(topPlayerScore)
         addChild(scoreBoard)
     }
+    
     func makeScoreBoard2()
     {
         scoreBoard2.fontSize = 20
@@ -309,6 +347,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         scoreBoard2.text = "Score: " + String(bottomPlayerScore)
         addChild(scoreBoard2)
     }
+    
     func makeTopPlayerScoreBoard()
     {
         topPlayerScoreBoard.fontSize = 15
@@ -317,6 +356,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         topPlayerScoreBoard.text = "Player 1: " + String(topPlayerGamesWon)
         addChild(topPlayerScoreBoard)
     }
+    
     func makeBottomPlayerScoreBoard()
     {
         bottomPlayerScoreBoard.fontSize = 15
@@ -325,5 +365,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         bottomPlayerScoreBoard.text = "Player 2: " + String(bottomPlayerGamesWon)
         addChild(bottomPlayerScoreBoard)
     }
+    
+    func resetGame ()
+    {
+        topPlayerScore = 0
+        bottomPlayerScore = 0
+        bottomPlayerScoreText = "0"
+        topPlayerScoreText = "0"
+        game = 1
+        topPlayerGamesWon = 0
+        bottomPlayerGamesWon = 0
+        scoreBoard2.text = "Score: \(bottomPlayerScoreText)"
+        scoreBoard.text = "Score: \(topPlayerScoreText)"
+        bottomPlayerScoreBoard.text = "Player 2: " + String(bottomPlayerGamesWon)
+        topPlayerScoreBoard.text = "Player 1: " + String(topPlayerGamesWon)
+    }
+    
+
 }
 
