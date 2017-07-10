@@ -27,19 +27,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var bottomPlayerScoreBoard = SKLabelNode(fontNamed: "Arial")
     var topPlayerGamesWon = 0
     var bottomPlayerGamesWon = 0
+    var startOver = false
     
-//    func displayWinningMessage(message:String)
-//    {
-//        let alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
-//        let alertAction = UIAlertAction(title: "Play Again", style: .default)
-//        {
-//            (action) -> Void in self.resetGame()
-//        }
-//        alert.addAction(alertAction)
-//
-//        present(alert, animated: true, completion: nil)
-//    }
-
     override func didMove(to view: SKView)
     {
         physicsWorld.contactDelegate = self
@@ -65,10 +54,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             let location = touch.location(in: self)
             
-            if self.view?.isPaused == true
+            if self.view?.isPaused == true || startOver == true
             {
+                if startOver == true
+                {
+                    makeTennisBall()
+                    resetGame()
+                }
                 tennisBall.position = CGPoint(x: frame.midX, y: frame.midY)
                 self.view?.isPaused = false
+                startOver = false
                 bottomPlayerScoreText = "0"
                 topPlayerScoreText = "0"
                 scoreBoard2.text = "Score: \(bottomPlayerScoreText)"
@@ -152,19 +147,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 bottomPlayerGamesWon += 1
                 bottomPlayerScoreBoard.text = "Player 2: " + String(bottomPlayerGamesWon)
                 if bottomPlayerGamesWon >= 6 && (bottomPlayerGamesWon == 7 || bottomPlayerGamesWon - 1 > topPlayerGamesWon) {
-//                     WINNING ROUTINE!!!
+//                  WINNING ROUTINE!!!
                     run(SKAction.playSoundFileNamed("winning.wav", waitForCompletion: true))
                     tennisBall.removeFromParent()
-//                    displayWinningMessage(message: "Player 2 Won the Set!!!")
+//                  resetGame()
+                    startOver = true
                 }
                 bottomPlayerScore = 0
                 topPlayerScore = 0
                 run(SKAction.playSoundFileNamed("tada.mp3", waitForCompletion: true))
                 //self.view?.isPaused = true
             }
-            scoreBoard2.text = "Score: \(bottomPlayerScoreText)"
-            scoreBoard.text = "Score: \(topPlayerScoreText)"
-            run(SKAction.playSoundFileNamed("miss.wav", waitForCompletion: false))
+            if startOver == true
+            {
+                scoreBoard.text = "Player 2 Has Won the Set!!!"
+                scoreBoard2.text = "Click to Reset Game and Start Over"
+            } else
+            {
+                scoreBoard2.text = "Score: \(bottomPlayerScoreText)"
+                scoreBoard.text = "Score: \(topPlayerScoreText)"
+                run(SKAction.playSoundFileNamed("miss.wav", waitForCompletion: false))
+            }
         }
         if (bodyAName == "tennisBall" && bodyBName == "loseZone2") || (bodyAName == "loseZone2" && bodyBName == "tennisBall")
         {
@@ -205,19 +208,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 topPlayerGamesWon += 1
                 topPlayerScoreBoard.text = "Player 1: " + String(topPlayerGamesWon)
                 if topPlayerGamesWon >= 6 && (topPlayerGamesWon == 7 || topPlayerGamesWon - 1 > bottomPlayerGamesWon) {
-//                     WINNING ROUTINE!!!
+//                  WINNING ROUTINE!!!
                     run(SKAction.playSoundFileNamed("winning.wav", waitForCompletion: true))
                     tennisBall.removeFromParent()
-//                    displayWinningMessage(message: "Player 1 Won the Set!!!")
+//                  resetGame()
+                    startOver = true
                 }
                 topPlayerScore = 0
                 bottomPlayerScore = 0
                 run(SKAction.playSoundFileNamed("tada.mp3", waitForCompletion: true))
                 //self.view?.isPaused = true
             }
-            scoreBoard.text = "Score: \(topPlayerScoreText)"
-            scoreBoard2.text = "Score: \(bottomPlayerScoreText)"
-            run(SKAction.playSoundFileNamed("miss.wav", waitForCompletion: false))
+            if startOver == true
+            {
+                scoreBoard.text = "Player 1 Has Won the Set!!!"
+                scoreBoard2.text = "Click to Reset Game and Start Over"
+            } else {
+                scoreBoard.text = "Score: \(topPlayerScoreText)"
+                scoreBoard2.text = "Score: \(bottomPlayerScoreText)"
+                run(SKAction.playSoundFileNamed("miss.wav", waitForCompletion: false))
+            }
         }
         if (bodyAName == "tennisRacket1" || bodyBName == "tennisRacket1") || (bodyAName == "tennisRacket2" || bodyBName == "tennisRacket2")
         {
@@ -366,7 +376,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         addChild(bottomPlayerScoreBoard)
     }
     
-    func resetGame ()
+    func resetGame()
     {
         topPlayerScore = 0
         bottomPlayerScore = 0
