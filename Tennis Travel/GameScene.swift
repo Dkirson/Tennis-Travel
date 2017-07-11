@@ -28,6 +28,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var topPlayerGamesWon = 0
     var bottomPlayerGamesWon = 0
     var startOver = false
+    var player1Named = ""
+    var player2Named = ""
+    var randomIndex: UInt32 = 0
     
     override func didMove(to view: SKView)
     {
@@ -147,10 +150,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 bottomPlayerGamesWon += 1
                 bottomPlayerScoreBoard.text = "Player 2: " + String(bottomPlayerGamesWon)
                 if bottomPlayerGamesWon >= 6 && (bottomPlayerGamesWon == 7 || bottomPlayerGamesWon - 1 > topPlayerGamesWon) {
-//                  WINNING ROUTINE!!!
+                    //                  WINNING ROUTINE!!!
                     run(SKAction.playSoundFileNamed("winning.wav", waitForCompletion: true))
                     tennisBall.removeFromParent()
-//                  resetGame()
+                    //                  resetGame()
                     startOver = true
                 }
                 bottomPlayerScore = 0
@@ -208,10 +211,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 topPlayerGamesWon += 1
                 topPlayerScoreBoard.text = "Player 1: " + String(topPlayerGamesWon)
                 if topPlayerGamesWon >= 6 && (topPlayerGamesWon == 7 || topPlayerGamesWon - 1 > bottomPlayerGamesWon) {
-//                  WINNING ROUTINE!!!
+                    //                  WINNING ROUTINE!!!
                     run(SKAction.playSoundFileNamed("winning.wav", waitForCompletion: true))
                     tennisBall.removeFromParent()
-//                  resetGame()
+                    //                  resetGame()
                     startOver = true
                 }
                 topPlayerScore = 0
@@ -302,21 +305,49 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func makeRacket1()
     {
-        tennisRacket1 = SKSpriteNode(color: UIColor.blue, size: CGSize(width: frame.width/4, height: 10))
-        tennisRacket1.position = CGPoint(x: frame.minX, y: frame.minY + 80)
+        tennisRacket1 = SKSpriteNode(color: UIColor.blue, size: CGSize(width: 72, height: 72))
+        tennisRacket1.position = CGPoint(x: frame.midX, y: frame.minY + 80)
         tennisRacket1.name = "tennisRacket1"
         tennisRacket1.physicsBody = SKPhysicsBody(rectangleOf: tennisRacket1.size)
         tennisRacket1.physicsBody?.isDynamic = false
+        randomIndex = arc4random_uniform(8)
+        switch(randomIndex)
+        {
+        case 0 : player1Named = "Hulk-icon"
+        case 1 : player1Named = "Captain-America-icon"
+        case 2 : player1Named = "Iron-Man-icon"
+        case 3 : player1Named = "Hawkeye-icon"
+        case 4 : player1Named = "Loki-icon"
+        case 5 : player1Named = "Thor-icon"
+        case 6 : player1Named = "Nick-Fury-icon"
+        case 7 : player1Named = "Black-Widow-icon"
+        default : player1Named = "Hulk-icon"
+        }
+        tennisRacket1.texture = SKTexture(imageNamed: player1Named)
         addChild(tennisRacket1)
     }
     
     func makeRacket2()
     {
-        tennisRacket2 = SKSpriteNode(color: UIColor.blue, size: CGSize(width: frame.width/4, height: 10))
-        tennisRacket2.position = CGPoint(x: frame.minX, y: frame.maxY - 80)   // moved to maxY - 125 to move higher on screen
+        tennisRacket2 = SKSpriteNode(color: UIColor.blue, size: CGSize(width: 72, height: 72))
+        tennisRacket2.position = CGPoint(x: frame.midX, y: frame.maxY - 80)   // moved to maxY - 125 to move higher on screen
         tennisRacket2.name = "tennisRacket2"
         tennisRacket2.physicsBody = SKPhysicsBody(rectangleOf: tennisRacket2.size)
         tennisRacket2.physicsBody?.isDynamic = false
+        randomIndex = arc4random_uniform(8)
+        switch(randomIndex)
+        {
+        case 0 : player2Named = "Hulk-icon"
+        case 1 : player2Named = "Captain-America-icon"
+        case 2 : player2Named = "Iron-Man-icon"
+        case 3 : player2Named = "Hawkeye-icon"
+        case 4 : player2Named = "Loki-icon"
+        case 5 : player2Named = "Thor-icon"
+        case 6 : player2Named = "Nick-Fury-icon"
+        case 7 : player2Named = "Black-Widow-icon"
+        default : player2Named = "Thor-icon"
+        }
+        tennisRacket2.texture = SKTexture(imageNamed: player2Named)
         addChild(tennisRacket2)
     }
     
@@ -390,7 +421,4 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         bottomPlayerScoreBoard.text = "Player 2: " + String(bottomPlayerGamesWon)
         topPlayerScoreBoard.text = "Player 1: " + String(topPlayerGamesWon)
     }
-    
-
 }
-
