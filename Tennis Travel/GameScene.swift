@@ -153,13 +153,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     //                  WINNING ROUTINE!!!
                     run(SKAction.playSoundFileNamed("winning.wav", waitForCompletion: true))
                     tennisBall.removeFromParent()
-                    //                  resetGame()
                     startOver = true
                 }
                 bottomPlayerScore = 0
                 topPlayerScore = 0
                 run(SKAction.playSoundFileNamed("tada.mp3", waitForCompletion: true))
-                //self.view?.isPaused = true
             }
             if startOver == true
             {
@@ -214,13 +212,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     //                  WINNING ROUTINE!!!
                     run(SKAction.playSoundFileNamed("winning.wav", waitForCompletion: true))
                     tennisBall.removeFromParent()
-                    //                  resetGame()
                     startOver = true
                 }
                 topPlayerScore = 0
                 bottomPlayerScore = 0
                 run(SKAction.playSoundFileNamed("tada.mp3", waitForCompletion: true))
-                //self.view?.isPaused = true
             }
             if startOver == true
             {
@@ -306,7 +302,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     func makeRacket1()
     {
         tennisRacket1 = SKSpriteNode(color: UIColor.blue, size: CGSize(width: 72, height: 72))
-        tennisRacket1.position = CGPoint(x: frame.midX, y: frame.minY + 80)
+        tennisRacket1.position = CGPoint(x: frame.midX, y: frame.minY + 55)
         tennisRacket1.name = "tennisRacket1"
         tennisRacket1.physicsBody = SKPhysicsBody(rectangleOf: tennisRacket1.size)
         tennisRacket1.physicsBody?.isDynamic = false
@@ -330,21 +326,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     func makeRacket2()
     {
         tennisRacket2 = SKSpriteNode(color: UIColor.blue, size: CGSize(width: 72, height: 72))
-        tennisRacket2.position = CGPoint(x: frame.midX, y: frame.maxY - 80)   // moved to maxY - 125 to move higher on screen
+        tennisRacket2.position = CGPoint(x: frame.midX, y: frame.maxY - 55)
         tennisRacket2.name = "tennisRacket2"
         tennisRacket2.physicsBody = SKPhysicsBody(rectangleOf: tennisRacket2.size)
         tennisRacket2.physicsBody?.isDynamic = false
         randomIndex = arc4random_uniform(8)
         switch(randomIndex)
         {
-        case 0 : player2Named = "Hulk-icon"
-        case 1 : player2Named = "Captain-America-icon"
-        case 2 : player2Named = "Iron-Man-icon"
-        case 3 : player2Named = "Hawkeye-icon"
-        case 4 : player2Named = "Loki-icon"
-        case 5 : player2Named = "Thor-icon"
-        case 6 : player2Named = "Nick-Fury-icon"
-        case 7 : player2Named = "Black-Widow-icon"
+        case 0 : player2Named = "Black-Widow-icon"
+        case 1 : player2Named = "Hulk-icon"
+        case 2 : player2Named = "Captain-America-icon"
+        case 3 : player2Named = "Iron-Man-icon"
+        case 4 : player2Named = "Hawkeye-icon"
+        case 5 : player2Named = "Loki-icon"
+        case 6 : player2Named = "Thor-icon"
+        case 7 : player2Named = "Nick-Fury-icon"
         default : player2Named = "Thor-icon"
         }
         tennisRacket2.texture = SKTexture(imageNamed: player2Named)
@@ -353,7 +349,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func makeLoseZone()
     {
-        loseZone = SKSpriteNode(color: UIColor.clear, size: CGSize(width: 840, height: 140))   // made width 840 to fill screen
+        loseZone = SKSpriteNode(color: UIColor.clear, size: CGSize(width: 840, height: 140))
         loseZone.position = CGPoint(x: frame.minX, y: frame.maxY)
         loseZone.name = "loseZone"
         loseZone.physicsBody = SKPhysicsBody(rectangleOf: loseZone.size)
@@ -363,7 +359,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func makeLoseZone2()
     {
-        loseZone2 = SKSpriteNode(color: UIColor.clear, size: CGSize(width: 840, height: 140))   // made width 840 to fill screen
+        loseZone2 = SKSpriteNode(color: UIColor.clear, size: CGSize(width: 840, height: 140))
         loseZone2.position = CGPoint(x: frame.maxX, y: frame.minY)
         loseZone2.name = "loseZone2"
         loseZone2.physicsBody = SKPhysicsBody(rectangleOf: loseZone2.size)

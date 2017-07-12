@@ -52,4 +52,16 @@ class GameViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
+    
+    
+    @IBAction func pauseGame(_ sender: UIButton) {
+        let skView = self.view as! SKView
+        skView.isPaused = true
+    }
+    
+    
+    @IBAction func resumeGame(_ sender: UIButton) {
+        let skView = self.view as! SKView
+        skView.isPaused = false
+    }
 }
