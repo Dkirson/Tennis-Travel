@@ -67,10 +67,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 tennisBall.position = CGPoint(x: frame.midX, y: frame.midY)
                 self.view?.isPaused = false
                 startOver = false
-                bottomPlayerScoreText = "0"
-                topPlayerScoreText = "0"
-                scoreBoard2.text = "Score: \(bottomPlayerScoreText)"
-                scoreBoard.text = "Score: \(topPlayerScoreText)"
+//                bottomPlayerScoreText = "0"
+//                topPlayerScoreText = "0"
+//                scoreBoard2.text = "Score: \(bottomPlayerScoreText)"
+//                scoreBoard.text = "Score: \(topPlayerScoreText)"
                 
                 
                 if loseZone2.contains(location)
