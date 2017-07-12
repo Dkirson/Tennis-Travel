@@ -11,6 +11,7 @@ import SpriteKit
 import GameplayKit
 
 class GameViewController: UIViewController {
+    @IBOutlet weak var playPauseButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,13 +56,23 @@ class GameViewController: UIViewController {
     
     
     @IBAction func pauseGame(_ sender: UIButton) {
-        let skView = self.view as! SKView
+        if playPauseButton.imageView?.image == #imageLiteral(resourceName: "pause")
+        {
+            let skView = self.view as! SKView
         skView.isPaused = true
+            playPauseButton.setImage(UIImage(named: "play"), for: .normal)
+            print("play here")
+        }
+     else
+        {
+            let skView = self.view as! SKView
+            skView.isPaused = false
+            playPauseButton.setImage(UIImage(named: "pause"), for: .normal)
+
+        }
     }
     
     
-    @IBAction func resumeGame(_ sender: UIButton) {
-        let skView = self.view as! SKView
-        skView.isPaused = false
+    
     }
-}
+

@@ -369,19 +369,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func makeScoreBoard()
     {
-        scoreBoard.fontSize = 20
-        scoreBoard.fontColor = SKColor.blue
-        scoreBoard.position = CGPoint(x: frame.midX, y: frame.maxY - 30)
-        scoreBoard.text = "Score: " + String(topPlayerScore)
+        scoreBoard.fontSize = 50
+        scoreBoard.fontColor = SKColor.lightText
+        scoreBoard.position = CGPoint(x: frame.midX, y: frame.minY + 600)
+        scoreBoard.text = " " + String(topPlayerScore)
         addChild(scoreBoard)
     }
     
     func makeScoreBoard2()
     {
-        scoreBoard2.fontSize = 20
-        scoreBoard2.fontColor = SKColor.blue
-        scoreBoard2.position = CGPoint(x: frame.midX, y: frame.minY + 10)
-        scoreBoard2.text = "Score: " + String(bottomPlayerScore)
+        scoreBoard2.fontSize = 50
+        scoreBoard2.fontColor = SKColor.lightText
+        scoreBoard2.position = CGPoint(x: frame.midX, y: frame.minY + 150)
+        scoreBoard2.text = " " + String(bottomPlayerScore)
         addChild(scoreBoard2)
     }
     
